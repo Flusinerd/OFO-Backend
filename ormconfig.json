@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "jan-krueger.eu",
+  "port": 3306,
+  "username": "ofo",
+  "password": "Pw4ofo#123",
+  "database": "ofo",
+  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "synchronize": true
+}
