@@ -21,7 +21,7 @@ jobs:
       - store_test_results:
           path: "reports/junit/js-test-results.xml"
       - codecov/upload:
-          file: coverage
+          file: coverage/clover.xml
       - store_artifacts:
           path: coverage
 workflows:
