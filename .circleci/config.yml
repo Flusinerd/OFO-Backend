@@ -4,13 +4,19 @@ orbs:
 jobs:
   build-and-test:
     executor:
-      name: node/default
+      name: "node/default"
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm run test:cov
+            - run: 
+                name: Install dependencies
+                command: npm install
+            - run: 
+                name: Run tests
+                command: npm run test:ci
+                environment:
+                  JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
 workflows:
     build-and-test:
       jobs:
