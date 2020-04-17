@@ -1,0 +1,28 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { EventUserService } from './event-user.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { EventUserEntity } from './models/event-user.entity';
+import { PlatformEntity } from '../platform/models/platform.entity';
+import { EventEntity } from '../event/models/event.entity';
+
+describe('EventUserService', () => {
+  let service: EventUserService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        EventUserService,
+        { provide: getRepositoryToken(EventUserEntity), useClass: Repository },
+        { provide: getRepositoryToken(PlatformEntity), useClass: Repository },
+        { provide: getRepositoryToken(EventEntity), useClass: Repository },
+      ],
+    }).compile();
+
+    service = module.get<EventUserService>(EventUserService);
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+});
