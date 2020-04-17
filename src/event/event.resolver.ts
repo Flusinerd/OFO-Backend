@@ -4,6 +4,7 @@ import { EventService } from './event.service';
 import { CreateEventInput } from './models/event.input';
 import { AddUserInput } from './models/addUser.input';
 
+//
 @Resolver('Event')
 export class EventResolver {
   constructor(
