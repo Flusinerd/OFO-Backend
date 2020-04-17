@@ -17,6 +17,8 @@ jobs:
                 command: npm run test:ci
                 environment:
                   JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
+      - store_test_results:
+          path: "reports/junit/js-test-results.xml"
 workflows:
     build-and-test:
       jobs:
