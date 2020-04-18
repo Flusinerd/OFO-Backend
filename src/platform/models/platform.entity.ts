@@ -19,5 +19,6 @@ export class PlatformEntity {
   user?: EventUserEntity;
 
   @ManyToOne(type => EventEntity, event => event.platforms)
+  @Field(type => EventEntity, {nullable: true})
   event: EventEntity;
 }

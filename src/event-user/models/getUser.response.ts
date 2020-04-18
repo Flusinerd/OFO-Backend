@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from "@nestjs/graphql";
+import { PlatformEntity } from "../../platform/models/platform.entity";
 
 @ObjectType()
 class DateResponse{
@@ -47,8 +48,8 @@ export class GetUserResponse{
   @Field(type => [DateResponse])
   dates: DateResponse[];
 
-  @Field(type => [PlatformResponse])
-  platforms: PlatformResponse[];
+  @Field(type => [PlatformEntity])
+  platforms: PlatformEntity[];
 
   @Field({ nullable: true })
   event: EventResponse;

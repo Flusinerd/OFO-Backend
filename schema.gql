@@ -23,6 +23,7 @@ type PlatformEntity {
   id: Int!
   title: String!
   user: EventUserEntity!
+  event: EventEntity
 }
 
 type EventEntity {
@@ -34,18 +35,6 @@ type EventEntity {
   voted_count: Int!
   users: [EventUserEntity!]!
   platforms: [PlatformEntity!]!
-}
-
-type AddPlatformPlatformResponse {
-  id: Int!
-  title: String!
-}
-
-type AddPlatformResponse {
-  id: Int!
-  dates: [DateEntity!]
-  platforms: [AddPlatformPlatformResponse!]!
-  event: EventEntity!
 }
 
 type DateResponse {
@@ -70,7 +59,7 @@ type EventResponse {
 type GetUserResponse {
   id: Int!
   dates: [DateResponse!]!
-  platforms: [PlatformResponse!]!
+  platforms: [PlatformEntity!]!
   event: EventResponse
 }
 
@@ -84,7 +73,10 @@ type Query {
 type Mutation {
   createEvent(input: CreateEventInput!): EventEntity!
   addUser(input: AddUserInput!): EventEntity!
-  addPlatform(input: AddPlatformInput!): AddPlatformResponse!
+  addPlatform(input: AddPlatformInput!): GetUserResponse!
+  addPlatforms(input: AddPlatformsInput!): GetUserResponse!
+  addDate(input: AddDateInput!): GetUserResponse!
+  addDates(input: AddDatesInput!): GetUserResponse!
   createEventUser(input: EventUserInput!): EventUserEntity!
 }
 
@@ -120,4 +112,22 @@ input AddPlatformInput {
   userId: Int!
   platform: PlatformInput
   platformId: Int
+}
+
+input AddPlatformsInput {
+  userId: Int!
+  platforms: [PlatformInput!]
+  platformIds: [Int!]
+}
+
+input AddDateInput {
+  userId: Int!
+  date: DateInput
+  dateId: Int
+}
+
+input AddDatesInput {
+  userId: Int!
+  dates: [DateInput!]
+  dateIds: [Int!]
 }

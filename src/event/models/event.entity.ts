@@ -35,7 +35,7 @@ export class EventEntity{
   @Field(type => [EventUserEntity])
   users: EventUserEntity[];
 
-  @OneToMany(type => PlatformEntity, platform => platform.event, { cascade : true })
+  @OneToMany(type => PlatformEntity, platform => platform.event)
   @Field(type => [PlatformEntity])
   platforms: PlatformEntity[];
 }
