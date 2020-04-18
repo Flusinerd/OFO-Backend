@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { EventUserEntity } from './models/event-user.entity';
 import { PlatformEntity } from '../platform/models/platform.entity';
 import { EventEntity } from '../event/models/event.entity';
+import { DateEntity } from './models/date.entity';
 
 describe('EventUserService', () => {
   let service: EventUserService;
@@ -16,6 +17,7 @@ describe('EventUserService', () => {
         { provide: getRepositoryToken(EventUserEntity), useClass: Repository },
         { provide: getRepositoryToken(PlatformEntity), useClass: Repository },
         { provide: getRepositoryToken(EventEntity), useClass: Repository },
+        { provide: getRepositoryToken(DateEntity), useClass: Repository }
       ],
     }).compile();
 
