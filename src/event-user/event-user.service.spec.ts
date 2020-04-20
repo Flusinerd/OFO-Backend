@@ -16,7 +16,6 @@ describe('EventUserService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         EventUserService,
-        { provide: EventService, useClass: EventServiceMock },
         { provide: getRepositoryToken(EventUserEntity), useClass: Repository },
         { provide: getRepositoryToken(PlatformEntity), useClass: Repository },
         { provide: getRepositoryToken(EventEntity), useClass: Repository },

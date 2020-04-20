@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" time="5.979">
-  <testsuite name="EventUserService" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:18:07" time="5.654" tests="1">
-    <testcase classname="EventUserService should be defined" name="EventUserService should be defined" time="0.013">
+<testsuites name="jest tests" tests="5" failures="0" time="4.471">
+  <testsuite name="EventService" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:22:33" time="3.882" tests="1">
+    <testcase classname="EventService should be defined" name="EventService should be defined" time="0.015">
+    </testcase>
+  </testsuite>
+  <testsuite name="EventResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:22:33" time="3.909" tests="1">
+    <testcase classname="EventResolver should be defined" name="EventResolver should be defined" time="0.021">
+    </testcase>
+  </testsuite>
+  <testsuite name="EventUserService" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:22:33" time="3.927" tests="1">
+    <testcase classname="EventUserService should be defined" name="EventUserService should be defined" time="0.038">
+    </testcase>
+  </testsuite>
+  <testsuite name="EventUserResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:22:33" time="3.952" tests="1">
+    <testcase classname="EventUserResolver should be defined" name="EventUserResolver should be defined" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="AppController" errors="0" failures="0" skipped="0" timestamp="2020-04-20T09:22:37" time="0.239" tests="1">
+    <testcase classname="AppController root should be defined" name="AppController root should be defined" time="0.004">
     </testcase>
   </testsuite>
 </testsuites>
