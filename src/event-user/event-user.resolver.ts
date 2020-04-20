@@ -30,6 +30,7 @@ export class EventUserResolver {
     const platform = this._eventUserService.addPlatform(input);
     const event = this._eventService.getOne((await platform).event.id);
     pubSub.publish('eventUpdated', { eventUpdated: event })
+    pubSub.publish('userUpdated', { userUpdated: platform });
     return platform;
   }
 
@@ -38,6 +39,7 @@ export class EventUserResolver {
     const platform = this._eventUserService.addPlatforms(input);
     const event = this._eventService.getOne((await platform).event.id);
     pubSub.publish('eventUpdated', { eventUpdated: event });
+    pubSub.publish('userUpdated', { userUpdated: platform });
     return platform;
   }
 
@@ -46,6 +48,7 @@ export class EventUserResolver {
     const date = this._eventUserService.addDate(input);
     const event = this._eventService.getOne((await date).event.id);
     pubSub.publish('eventUpdated', { eventUpdated: event });
+    pubSub.publish('userUpdated', { userUpdated: date });
     return date;
   }
 
@@ -54,6 +57,7 @@ export class EventUserResolver {
     const date = this._eventUserService.addDates(input);
     const event = this._eventService.getOne((await date).event.id);
     pubSub.publish('eventUpdated', { eventUpdated: event });
+    pubSub.publish('userUpdated', { userUpdated: date });
     return date;
   }
 
@@ -62,6 +66,17 @@ export class EventUserResolver {
     const user = this._eventUserService.createOne(userData);
     const event = this._eventService.getOne((await user).event.id);
     pubSub.publish('eventUpdated', { eventUpdated: event });
+    pubSub.publish('userCreated', { userCreated: user });
     return user;
+  }
+
+  @Subscription(returns => GetUserResponse)
+  async userUpdated() {
+    return pubSub.asyncIterator('userUpdated');
+  }
+
+  @Subscription(returns => GetUserResponse)
+  async userCreated() {
+    return pubSub.asyncIterator('userCreated');
   }
 }

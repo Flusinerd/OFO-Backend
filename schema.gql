@@ -135,4 +135,6 @@ input AddDatesInput {
 type Subscription {
   eventUpdated: EventEntity!
   eventCreated: EventEntity!
+  userUpdated: GetUserResponse!
+  userCreated: GetUserResponse!
 }
