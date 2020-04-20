@@ -6,6 +6,8 @@ import { EventUserEntity } from './models/event-user.entity';
 import { PlatformEntity } from '../platform/models/platform.entity';
 import { EventEntity } from '../event/models/event.entity';
 import { DateEntity } from './models/date.entity';
+import { EventService } from '../event/event.service';
+import { EventServiceMock } from '../event/testing/event.service.mock';
 
 describe('EventUserService', () => {
   let service: EventUserService;
@@ -14,6 +16,7 @@ describe('EventUserService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         EventUserService,
+        { provide: EventService, useClass: EventServiceMock },
         { provide: getRepositoryToken(EventUserEntity), useClass: Repository },
         { provide: getRepositoryToken(PlatformEntity), useClass: Repository },
         { provide: getRepositoryToken(EventEntity), useClass: Repository },
