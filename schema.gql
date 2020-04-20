@@ -131,3 +131,8 @@ input AddDatesInput {
   dates: [DateInput!]
   dateIds: [Int!]
 }
+
+type Subscription {
+  eventUpdated: EventEntity!
+  eventCreated: EventEntity!
+}
