@@ -45,10 +45,10 @@ export class GetUserResponse{
   @Field(type => Int)
   id: number;
 
-  @Field(type => [DateResponse])
+  @Field(type => [DateResponse], { nullable: true })
   dates: DateResponse[];
 
-  @Field(type => [PlatformEntity])
+  @Field(type => [PlatformEntity], { nullable: true })
   platforms: PlatformEntity[];
 
   @Field({ nullable: true })

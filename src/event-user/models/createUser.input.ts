@@ -4,13 +4,19 @@ import { DateEntity } from "./date.entity";
 import { PlatformInput } from "../../platform/models/platform.input";
 
 @InputType()
-export class EventUserInput{
+export class EventUserInput {
   @Field(type => [DateInput], { nullable: true })
   dates: DateEntity[];
 
   @Field(type => [PlatformInput], {nullable: true})
   platforms: PlatformInput[];
 
+  @Field(type => Int)
+  eventId: number;
+}
+
+@InputType()
+export class CreateEventUserInput {
   @Field(type => Int)
   eventId: number;
 }

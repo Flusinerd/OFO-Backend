@@ -16,13 +16,13 @@ scalar DateTime
 type EventUserEntity {
   id: Int!
   dates: [DateEntity!]
-  platforms: [PlatformEntity!]!
+  platforms: [PlatformEntity!]
 }
 
 type PlatformEntity {
   id: Int!
   title: String!
-  user: EventUserEntity!
+  users: [EventUserEntity!]!
   event: EventEntity
 }
 
@@ -58,8 +58,8 @@ type EventResponse {
 
 type GetUserResponse {
   id: Int!
-  dates: [DateResponse!]!
-  platforms: [PlatformEntity!]!
+  dates: [DateResponse!]
+  platforms: [PlatformEntity!]
   event: EventResponse
 }
 

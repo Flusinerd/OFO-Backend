@@ -31,7 +31,8 @@ export class EventService {
   }
 
   async createOne(input: CreateEventInput): Promise<EventEntity> {
-    return this._eventRepository.save(input);
+    const event = this._eventRepository.create(input);
+    return this._eventRepository.save(event);
   }
 
   async addUser(input: AddUserInput){
@@ -59,6 +60,8 @@ export class EventService {
     user.event = event;
     user = await this._eventUserRepository.save(user);
     event.users.push(user);
-    return this._eventRepository.save(event);
+    await this._eventRepository.save(event);
+    await this._eventUserService.getOptimalPlatform(event);
+    return this.getOne(event.id);
   }
 }

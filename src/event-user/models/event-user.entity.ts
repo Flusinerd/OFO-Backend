@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { DateEntity } from "./date.entity";
 import { ObjectType, Field, Int } from "@nestjs/graphql";
 import { PlatformEntity } from "../../platform/models/platform.entity";
@@ -11,13 +11,14 @@ export class EventUserEntity {
   @Field(type => Int)
   id: number;
 
-  @OneToMany(type => DateEntity, date => date.user, {eager: true, cascade: true})
+  @OneToMany(type => DateEntity, date => date.user, {eager: true, cascade: true, nullable: true})
   @Field(type => [DateEntity], { nullable: true })
-  dates: DateEntity[];
+  dates?: DateEntity[];
 
-  @OneToMany(type => PlatformEntity, platformEntity => platformEntity.user, {eager: true, cascade: true})
-  @Field(type => [PlatformEntity])
-  platforms: PlatformEntity[];
+  @ManyToMany(type => PlatformEntity, platformEntity => platformEntity.users, {eager: true, cascade: true, nullable: true})
+  @JoinTable()
+  @Field(type => [PlatformEntity], { nullable: true })
+  platforms?: PlatformEntity[];
 
   @ManyToOne(type => EventEntity, event => event.users, {eager: true})
   event?: EventEntity;
