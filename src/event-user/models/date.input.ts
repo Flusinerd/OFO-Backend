@@ -8,7 +8,10 @@ export class DateInput{
   id: number;
 
   @Field()
-  date: Date
+  startDate: Date;
+
+  @Field()
+  endDate: Date;
 
   @Field(type => EventUserInput, {nullable: true})
   user: EventUserEntity

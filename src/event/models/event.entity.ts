@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PlatformEntity } from "../../platform/models/platform.entity";
 import { EventUserEntity } from "../../event-user/models/event-user.entity";
+import { DateEntity } from "../../event-user/models/date.entity";
 
 @Entity()
 @ObjectType()
@@ -38,4 +39,8 @@ export class EventEntity{
   @OneToMany(type => PlatformEntity, platform => platform.event)
   @Field(type => [PlatformEntity])
   platforms: PlatformEntity[];
+
+  @OneToMany(type => DateEntity, date => date.event)
+  @Field(type => [DateEntity])
+  dates: DateEntity[]
 }

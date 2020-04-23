@@ -11,7 +11,7 @@ export class EventUserEntity {
   @Field(type => Int)
   id: number;
 
-  @OneToMany(type => DateEntity, date => date.user, {eager: true, cascade: true, nullable: true})
+  @ManyToMany(type => DateEntity, date => date.users, {eager: true, cascade: true, nullable: true})
   @Field(type => [DateEntity], { nullable: true })
   dates?: DateEntity[];
 

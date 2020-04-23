@@ -7,7 +7,10 @@ class DateResponse{
   id: number;
 
   @Field()
-  date: Date;
+  startDate: Date;
+
+  @Field()
+  endDate: Date;
 }
 
 @ObjectType()
@@ -38,6 +41,9 @@ class EventResponse{
 
   @Field(type => Int)
   voted_count: number;
+
+  @Field(type => [DateResponse], {nullable: true})
+  dates: DateResponse[];
 }
 
 @ObjectType()

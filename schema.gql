@@ -4,8 +4,9 @@
 
 type DateEntity {
   id: Int!
-  date: DateTime!
-  user: EventUserEntity!
+  startDate: DateTime!
+  endDate: DateTime!
+  users: [EventUserEntity!]!
 }
 
 """
@@ -35,11 +36,13 @@ type EventEntity {
   voted_count: Int!
   users: [EventUserEntity!]!
   platforms: [PlatformEntity!]!
+  dates: [DateEntity!]!
 }
 
 type DateResponse {
   id: Int!
-  date: DateTime!
+  startDate: DateTime!
+  endDate: DateTime!
 }
 
 type PlatformResponse {
@@ -54,6 +57,7 @@ type EventResponse {
   optimalDate: DateTime!
   optimalPlatform: PlatformResponse
   voted_count: Int!
+  dates: [DateResponse!]
 }
 
 type GetUserResponse {
@@ -94,7 +98,8 @@ input EventUserInput {
 
 input DateInput {
   id: Int
-  date: DateTime!
+  startDate: DateTime!
+  endDate: DateTime!
   user: EventUserInput
 }
 

@@ -164,9 +164,9 @@ export class EventUserService {
       date = await this._dateRepository.findOne(input.dateId);
     }
     if (!date) throw new Error('Date could not be found/created');
-    if (date.user) throw new Error('Date already has a user assigned');
+    if (date.users.some(check => check.id === user.id)) throw new Error('Date already has this user assigned');
 
-    date.user = user;
+    date.users.push(user);
     date = await this._dateRepository.save(date);
     
     await this.getOptimalDate(user.event);
@@ -241,33 +241,14 @@ export class EventUserService {
   async getOptimalDate(event: EventEntity) {
     if (!event.users) throw new Error('No users in event');
     const users = event.users;
-    const dates = {};
-
-    //Iterate trough all users
-    for (const user of users) {
-      // Iterate through platforms of a single user
-      for (const date of user.dates) {
-        // Check if platform already exists
-        if (!dates[date.id]) {
-          dates[date.id] = { date, count: 1 };
-        } else {
-          dates[date.id] = {
-            date,
-            count: dates[date.id].count + 1,
-          };
-        }
-      }
-    }
+    let dates = event.dates;
 
     let highestCount = 0;
     let optimalDate;
-    for (const date in dates) {
-      if (dates.hasOwnProperty(date)) {
-        const element = dates[date];
-        if (element.count > highestCount) {
-          highestCount = element.count;
-          optimalDate = date;
-        }
+    for (const date of dates) {
+      if (date.users.length > highestCount){
+        optimalDate = date;
+        highestCount = date.users.length;
       }
     }
 
