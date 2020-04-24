@@ -7,10 +7,10 @@ class DateResponse{
   id: number;
 
   @Field()
-  startDate: Date;
+  startDate?: Date;
 
   @Field()
-  endDate: Date;
+  endDate?: Date;
 }
 
 @ObjectType()
@@ -52,10 +52,10 @@ export class GetUserResponse{
   id: number;
 
   @Field(type => [DateResponse], { nullable: true })
-  dates: DateResponse[];
+  dates?: DateResponse[];
 
   @Field(type => [PlatformEntity], { nullable: true })
-  platforms: PlatformEntity[];
+  platforms?: PlatformEntity[];
 
   @Field({ nullable: true })
   event: EventResponse;

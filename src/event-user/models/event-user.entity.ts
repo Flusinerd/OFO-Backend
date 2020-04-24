@@ -15,8 +15,7 @@ export class EventUserEntity {
   @Field(type => [DateEntity], { nullable: true })
   dates?: DateEntity[];
 
-  @ManyToMany(type => PlatformEntity, platformEntity => platformEntity.users, {eager: true, cascade: true, nullable: true})
-  @JoinTable()
+  @ManyToMany(type => PlatformEntity, platformEntity => platformEntity.users, {eager: true, cascade: ["insert", "recover", "update"], nullable: true})
   @Field(type => [PlatformEntity], { nullable: true })
   platforms?: PlatformEntity[];
 

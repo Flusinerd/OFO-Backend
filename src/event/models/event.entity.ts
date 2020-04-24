@@ -23,7 +23,7 @@ export class EventEntity{
   @Field()
   optimalDate: Date;
 
-  @OneToOne(type => PlatformEntity, {eager: true})
+  @OneToOne(type => PlatformEntity, {eager: true, cascade: true})
   @JoinColumn()
   @Field(type => PlatformEntity, {nullable: true})
   optimalPlatform: PlatformEntity
@@ -36,7 +36,7 @@ export class EventEntity{
   @Field(type => [EventUserEntity])
   users: EventUserEntity[];
 
-  @OneToMany(type => PlatformEntity, platform => platform.event)
+  @OneToMany(type => PlatformEntity, platform => platform.event, {cascade: false})
   @Field(type => [PlatformEntity])
   platforms: PlatformEntity[];
 

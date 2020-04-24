@@ -28,7 +28,7 @@ export class EventUserService {
   ) {}
 
   async getOne(id: number): Promise<EventUserEntity> {
-    return this._eventUserRepo
+    const user = this._eventUserRepo
       .createQueryBuilder('user')
       .where({ id })
       .leftJoinAndSelect('user.dates', 'date')
@@ -39,12 +39,14 @@ export class EventUserService {
       .leftJoinAndSelect('eventUsers.platforms', 'eventUserPlatforms')
       .leftJoinAndSelect('event.optimalPlatform', 'optimalPlatform')
       .leftJoinAndSelect('event.dates', 'eventDates')
-      .leftJoinAndSelect('event.optimalDate', 'optimalDate')
+      .leftJoinAndSelect('eventDates.users', 'eventDateUsers')
       .getOne();
+    console.log(await user);
+    return user;
   }
 
   async getAll(): Promise<EventUserEntity[]> {
-    return this._eventUserRepo
+    const user = this._eventUserRepo
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.dates', 'date')
       .leftJoinAndSelect('user.platforms', 'platform')
@@ -54,8 +56,9 @@ export class EventUserService {
       .leftJoinAndSelect('eventUsers.platforms', 'eventUserPlatforms')
       .leftJoinAndSelect('event.optimalPlatform', 'optimalPlatform')
       .leftJoinAndSelect('event.dates', 'eventDates')
-      .leftJoinAndSelect('event.optimalDate', 'optimalDate')
+      .leftJoinAndSelect('eventDates.users', 'eventDateUsers')
       .getMany();
+    return user;
   }
 
   /**
@@ -86,7 +89,6 @@ export class EventUserService {
 
   async addPlatform(input: AddPlatformInput) {
     let user = await this.getOne(input.userId);
-    console.log(user.event);
     if (!user)
       throw new Error('User with id: "' + input.userId + '" does not exist');
     if (!input.platform && !input.platformId)
@@ -108,7 +110,6 @@ export class EventUserService {
     if (!platform.event) {
       platform.event = user.event;
     }
-
     await this._platformRepo.save(platform);
     await this.getOptimalPlatform(user.event);
     return this.getOne(user.id);
@@ -163,12 +164,17 @@ export class EventUserService {
     } else {
       date = await this._dateRepository.findOne(input.dateId);
     }
+
+    if (!date.users) {
+      date.users = [];
+    }
     if (!date) throw new Error('Date could not be found/created');
-    if (date.users.some(check => check.id === user.id)) throw new Error('Date already has this user assigned');
+    if (date.users.some(check => check.id === user.id))
+      throw new Error('Date already has this user assigned');
 
     date.users.push(user);
     date = await this._dateRepository.save(date);
-    
+
     await this.getOptimalDate(user.event);
     return this.getOne(input.userId);
   }
@@ -229,16 +235,18 @@ export class EventUserService {
         const element = platforms[platform];
         if (element.count > highestCount) {
           highestCount = element.count;
-          optimalPlatform = platform;
+          optimalPlatform = element;
         }
       }
     }
 
     event.optimalPlatform = optimalPlatform;
+    delete event.users;
     this._eventRepository.save(event);
   }
 
   async getOptimalDate(event: EventEntity) {
+    console.log(event);
     if (!event.users) throw new Error('No users in event');
     const users = event.users;
     let dates = event.dates;
@@ -246,7 +254,7 @@ export class EventUserService {
     let highestCount = 0;
     let optimalDate;
     for (const date of dates) {
-      if (date.users.length > highestCount){
+      if (date.users.length > highestCount) {
         optimalDate = date;
         highestCount = date.users.length;
       }
