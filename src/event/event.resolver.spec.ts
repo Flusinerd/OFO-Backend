@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventResolver } from './event.resolver';
 import { EventService } from './event.service';
-import { EventServiceMock } from './testing/event.service.mock';
+import { EventServiceMock } from '../../test/event.service.mock';
 
 describe('EventResolver', () => {
   let resolver: EventResolver;

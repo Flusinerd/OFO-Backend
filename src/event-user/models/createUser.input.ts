@@ -6,10 +6,10 @@ import { PlatformInput } from "../../platform/models/platform.input";
 @InputType()
 export class EventUserInput {
   @Field(type => [DateInput], { nullable: true })
-  dates: DateEntity[];
+  dates?: DateEntity[];
 
   @Field(type => [PlatformInput], {nullable: true})
-  platforms: PlatformInput[];
+  platforms?: PlatformInput[];
 
   @Field(type => Int)
   eventId: number;

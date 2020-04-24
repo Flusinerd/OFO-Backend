@@ -1,6 +1,6 @@
-import { EventEntity } from "../models/event.entity";
-import { CreateEventInput } from "../models/event.input";
-import { AddUserInput } from "../models/addUser.input";
+import { EventEntity } from "../src/event/models/event.entity";
+import { CreateEventInput } from "../src/event/models/event.input";
+import { AddUserInput } from "../src/event/models/addUser.input";
 
 export class EventServiceMock{
   async getOne(x: number): Promise<EventEntity>;

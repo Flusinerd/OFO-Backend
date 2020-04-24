@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventService } from './event.service';
 import { EventUserService } from '../event-user/event-user.service';
-import { EventUserServiceMock } from '../event-user/testing/event-user.service.mock';
+import { EventUserServiceMock } from '../../test/event-user.service.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { EventUserEntity } from '../event-user/models/event-user.entity';
 import { Repository } from 'typeorm';

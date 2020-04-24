@@ -6,8 +6,6 @@ import { EventUserEntity } from './models/event-user.entity';
 import { PlatformEntity } from '../platform/models/platform.entity';
 import { EventEntity } from '../event/models/event.entity';
 import { DateEntity } from './models/date.entity';
-import { EventService } from '../event/event.service';
-import { EventServiceMock } from '../event/testing/event.service.mock';
 
 describe('EventUserService', () => {
   let service: EventUserService;
