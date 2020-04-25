@@ -35,3 +35,4 @@ lerna-debug.log*
 
 #client
 src/client/*
+!src/client/.gitkeep
