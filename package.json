@@ -33,6 +33,7 @@
     "graphql-tools": "^5.0.0",
     "module-alias": "^2.2.2",
     "mysql": "^2.18.1",
+    "pg": "^8.0.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
