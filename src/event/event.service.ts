@@ -32,6 +32,7 @@ export class EventService {
 
   async createOne(input: CreateEventInput): Promise<EventEntity> {
     const event = this._eventRepository.create(input);
+    event.eventId = Buffer.from(new Date().valueOf().toString()).toString('base64');
     return this._eventRepository.save(event);
   }
 
