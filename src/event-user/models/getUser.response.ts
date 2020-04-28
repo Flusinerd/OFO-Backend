@@ -37,13 +37,16 @@ class EventResponse{
   optimalDate: Date;
 
   @Field({ nullable: true })
-  optimalPlatform: PlatformResponse
+  optimalPlatform?: PlatformResponse
 
   @Field(type => Int)
   voted_count: number;
 
   @Field(type => [DateResponse], {nullable: true})
-  dates: DateResponse[];
+  dates?: DateResponse[];
+
+  @Field(type => [PlatformResponse], {nullable: true})
+  platforms?: PlatformResponse[];
 }
 
 @ObjectType()

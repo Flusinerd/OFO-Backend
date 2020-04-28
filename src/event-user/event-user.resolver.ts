@@ -70,7 +70,7 @@ export class EventUserResolver {
     return date;
   }
 
-  @Mutation(returns => EventUserEntity, { name: 'createEventUser' })
+  @Mutation(returns => GetUserResponse, { name: 'createEventUser' })
   async createUser(@Args('input') userData: EventUserInput) {
     const user = this._eventUserService.createOne(userData);
     const event = this._eventService.getOne((await user).event.id);
