@@ -8,6 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MailerModule, MailerService, HandlebarsAdapter } from '@nestjs-modules/mailer';
 import { EmailModule } from './email/email.module';
+import * as fs from 'fs';
 
 
 @Module({
@@ -15,7 +16,7 @@ import { EmailModule } from './email/email.module';
     TypeOrmModule.forRoot(),
     EventModule,
     ServeStaticModule.forRoot({
-      rootPath: join(join(__dirname, '..', 'src', 'client'))
+      rootPath: join(__dirname, '..', 'src', 'client')
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
@@ -38,4 +39,15 @@ import { EmailModule } from './email/email.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(){
+    this.createFrontedConfig();
+  }
+  
+  private createFrontedConfig(){
+    const config = {
+      url: process.env.HOST_URL,
+    }
+    fs.writeFileSync(join(__dirname, '..', 'src', 'client', 'assets', 'config.json'), JSON.stringify(config));
+  }
+}
