@@ -21,8 +21,8 @@ export class DateEntity{
   @Field(type => [EventUserEntity])
   @ManyToMany(type => EventUserEntity, user => user.dates, {cascade: ["insert", "update"]})
   @JoinTable()
-  users: EventUserEntity[]
+  users?: EventUserEntity[]
 
   @ManyToOne(type => EventEntity, event => event.dates, {cascade: true})
-  event: EventEntity;
+  event?: EventEntity;
 }

@@ -4,9 +4,7 @@ import { EmailService } from './email.service';
 
 @Resolver('Email')
 export class EmailResolver {
-  constructor(private readonly _emailService: EmailService){
-
-  }
+  constructor(private readonly _emailService: EmailService){}
 
   @Mutation(returns => Boolean)
   async sendEmails(@Args('input', {type: () => SendEmailsInput}) input: SendEmailsInput){
