@@ -8,9 +8,15 @@
   </a>
 </p>
 
+
+
 ## Description
 
 Backend for the OFO-Coding competition
+
+## Installation for the OFO-App
+
+Please head over to [OFO APP](https://github.com/Datenlotse/OFO) for installing the OFO-App. This is only the frontend.
 
 ## Installation
 
