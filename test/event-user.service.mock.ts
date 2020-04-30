@@ -14,10 +14,6 @@ export class EventUserServiceMock {
     return [new EventUserMock()];
   }
 
-  async getAllOfEvent(event: EventEntity | number): Promise<EventUserEntity[]> {
-    return [new EventUserMock()];
-  }
-
   async createOne(data: EventUserInput): Promise<EventUserEntity> {
     return new EventUserMock();
   }
