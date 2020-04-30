@@ -24,14 +24,14 @@ import * as fs from 'fs';
     }),
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.sendgrid.net',
+        host: process.env.MAIL_HOST,
         auth: {
           user: process.env.MAIL_USERNAME,
           pass: process.env.MAIL_PASSWORD,
         }
       },
       defaults: {
-        from:'"OFO - Freizeit Planer" <ofo@datenlotse.org>',
+        from:`"OFO - Freizeit Planer" <${process.env.MAIL_ADDRESS}>`,
       },
     }),
     EmailModule,
