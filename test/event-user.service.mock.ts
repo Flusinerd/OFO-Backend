@@ -48,7 +48,7 @@ export class EventUserMock extends EventUserEntity {
 export class EventMock extends EventEntity {
   id = 1;
   eventId = 'MockEventID';
-  optimalDate = {id: 1, startDate: new Date(), endDate: new Date(), users: [{id: 1}]};
+  optimalDate: DateEntity = {id: 1, startDate: new Date(), endDate: new Date(), users: [{id: 1}]};
   title = 'MockEventTitle';
   voted_count = 0;
   dates = [];

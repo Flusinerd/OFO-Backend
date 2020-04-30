@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="20" failures="0" time="10.881">
-  <testsuite name="EventResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:12" time="5.38" tests="1">
-    <testcase classname="EventResolver should be defined" name="EventResolver should be defined" time="0.014">
+<testsuites name="jest tests" tests="20" failures="0" time="7.563">
+  <testsuite name="EventUserService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:07" time="4.948" tests="1">
+    <testcase classname="EventUserService should be defined" name="EventUserService should be defined" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="EventUserService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:12" time="5.415" tests="1">
-    <testcase classname="EventUserService should be defined" name="EventUserService should be defined" time="0.018">
+  <testsuite name="EventResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:07" time="4.986" tests="1">
+    <testcase classname="EventResolver should be defined" name="EventResolver should be defined" time="0.02">
     </testcase>
   </testsuite>
-  <testsuite name="EventUserResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:12" time="5.512" tests="14">
-    <testcase classname="EventUserResolver should be defined" name="EventUserResolver should be defined" time="0.015">
+  <testsuite name="EventUserResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:07" time="5.094" tests="14">
+    <testcase classname="EventUserResolver should be defined" name="EventUserResolver should be defined" time="0.016">
     </testcase>
-    <testcase classname="EventUserResolver should allow get all users" name="EventUserResolver should allow get all users" time="0.004">
+    <testcase classname="EventUserResolver should allow get all users" name="EventUserResolver should allow get all users" time="0.002">
     </testcase>
-    <testcase classname="EventUserResolver should allow to get a single user using id" name="EventUserResolver should allow to get a single user using id" time="0.003">
+    <testcase classname="EventUserResolver should allow to get a single user using id" name="EventUserResolver should allow to get a single user using id" time="0.004">
     </testcase>
-    <testcase classname="EventUserResolver should allow to add a single platform" name="EventUserResolver should allow to add a single platform" time="0.003">
+    <testcase classname="EventUserResolver should allow to add a single platform" name="EventUserResolver should allow to add a single platform" time="0.004">
     </testcase>
-    <testcase classname="EventUserResolver should throw an error, when addPlatform was unsucessfull" name="EventUserResolver should throw an error, when addPlatform was unsucessfull" time="0.021">
+    <testcase classname="EventUserResolver should throw an error, when addPlatform was unsucessfull" name="EventUserResolver should throw an error, when addPlatform was unsucessfull" time="0.009">
     </testcase>
     <testcase classname="EventUserResolver should allow to add multiple platforms" name="EventUserResolver should allow to add multiple platforms" time="0.005">
     </testcase>
-    <testcase classname="EventUserResolver should throw an error, when addPlatforms was unsucessfull" name="EventUserResolver should throw an error, when addPlatforms was unsucessfull" time="0.015">
+    <testcase classname="EventUserResolver should throw an error, when addPlatforms was unsucessfull" name="EventUserResolver should throw an error, when addPlatforms was unsucessfull" time="0.004">
     </testcase>
-    <testcase classname="EventUserResolver should allow to add a single date" name="EventUserResolver should allow to add a single date" time="0.002">
+    <testcase classname="EventUserResolver should allow to add a single date" name="EventUserResolver should allow to add a single date" time="0.003">
     </testcase>
     <testcase classname="EventUserResolver should throw an error, when addDate was unsucessfull" name="EventUserResolver should throw an error, when addDate was unsucessfull" time="0.002">
     </testcase>
-    <testcase classname="EventUserResolver should allow to add multiple dates" name="EventUserResolver should allow to add multiple dates" time="0.002">
+    <testcase classname="EventUserResolver should allow to add multiple dates" name="EventUserResolver should allow to add multiple dates" time="0.001">
     </testcase>
-    <testcase classname="EventUserResolver should throw an error, when addDates was unsucessfull" name="EventUserResolver should throw an error, when addDates was unsucessfull" time="0.001">
+    <testcase classname="EventUserResolver should throw an error, when addDates was unsucessfull" name="EventUserResolver should throw an error, when addDates was unsucessfull" time="0.002">
     </testcase>
-    <testcase classname="EventUserResolver should allow to create User" name="EventUserResolver should allow to create User" time="0.002">
+    <testcase classname="EventUserResolver should allow to create User" name="EventUserResolver should allow to create User" time="0.003">
     </testcase>
-    <testcase classname="EventUserResolver should provide a userUpdated Subscription" name="EventUserResolver should provide a userUpdated Subscription" time="0.002">
+    <testcase classname="EventUserResolver should provide a userUpdated Subscription" name="EventUserResolver should provide a userUpdated Subscription" time="0.001">
     </testcase>
-    <testcase classname="EventUserResolver should provide a userCreated Subscription" name="EventUserResolver should provide a userCreated Subscription" time="0.001">
+    <testcase classname="EventUserResolver should provide a userCreated Subscription" name="EventUserResolver should provide a userCreated Subscription" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="AppController" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:17" time="0.291" tests="1">
+  <testsuite name="AppController" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:12" time="0.276" tests="1">
     <testcase classname="AppController root should be defined" name="AppController root should be defined" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="EventService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:17" time="0.629" tests="1">
-    <testcase classname="EventService should be defined" name="EventService should be defined" time="0.005">
+  <testsuite name="EventService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:12" time="0.57" tests="1">
+    <testcase classname="EventService should be defined" name="EventService should be defined" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="EmailService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:12" time="7.083" tests="1">
-    <testcase classname="EmailService should be defined" name="EmailService should be defined" time="0.017">
+  <testsuite name="EmailService" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:07" time="6.565" tests="1">
+    <testcase classname="EmailService should be defined" name="EmailService should be defined" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="EmailResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:01:17" time="4.805" tests="1">
-    <testcase classname="EmailResolver should be defined" name="EmailResolver should be defined" time="0.003">
+  <testsuite name="EmailResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-30T13:05:12" time="2.113" tests="1">
+    <testcase classname="EmailResolver should be defined" name="EmailResolver should be defined" time="0.004">
     </testcase>
   </testsuite>
 </testsuites>
