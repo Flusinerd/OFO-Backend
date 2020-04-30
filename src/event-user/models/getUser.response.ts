@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from "@nestjs/graphql";
 import { PlatformEntity } from "../../platform/models/platform.entity";
+import { DateEntity } from "./date.entity";
 
 @ObjectType()
 class DateResponse{
@@ -33,14 +34,11 @@ class EventResponse{
   @Field()
   eventId: string;
 
-  @Field()
-  optimalDate: Date;
+  @Field({nullable: true})
+  optimalDate?: DateEntity;
 
   @Field({ nullable: true })
   optimalPlatform?: PlatformResponse
-
-  @Field(type => Int)
-  voted_count: number;
 
   @Field(type => [DateResponse], {nullable: true})
   dates?: DateResponse[];

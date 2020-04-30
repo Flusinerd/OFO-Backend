@@ -96,7 +96,7 @@ export class EventUserService {
     if (input.platform) {
       platform = this._platformRepo.create(input.platform);
     } else {
-      platform = await this._platformRepo.findOne(input.platformId);
+      platform = await this._platformRepo.findOne(input.platformId, {relations: ['users']});
     }
 
     if (!platform) throw new Error('Platform could not be found');
@@ -159,7 +159,7 @@ export class EventUserService {
     if (input.date) {
       date = await this._dateRepository.create(input.date);
     } else {
-      date = await this._dateRepository.findOne(input.dateId);
+      date = await this._dateRepository.findOne(input.dateId, {relations: ['users']});
     }
 
     if (!date.users) {
