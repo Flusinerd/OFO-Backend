@@ -37,13 +37,6 @@ export class EventResolver {
     return event;
   }
 
-  @Mutation(returns => EventEntity, { name: 'addUser' })
-  addUser(@Args('input') input: AddUserInput) {
-    const event = this._eventService.addUser(input);
-    pubSub.publish('eventCreated', { eventUpdated: event });
-    return event;
-  }
-
   @Subscription(returns => EventEntity)
   eventUpdated() {
     return pubSub.asyncIterator('eventUpdated');

@@ -6,6 +6,10 @@ import { EmailService } from './email.service';
 export class EmailResolver {
   constructor(private readonly _emailService: EmailService){}
 
+  /**
+   * Sends invite emails to the provided email adresses
+   * @param input Mutation Input
+   */
   @Mutation(returns => Boolean)
   async sendEmails(@Args('input', {type: () => SendEmailsInput}) input: SendEmailsInput){
     try {

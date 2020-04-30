@@ -20,6 +20,10 @@ export class EventService {
     private _eventUserService: EventUserService,
   ) {}
 
+  /**
+   * Fetches one event using the provided identifier
+   * @param x event identifier
+   */
   async getOne(x: number): Promise<EventEntity>;
   async getOne(x: EventEntity): Promise<EventEntity>;
   async getOne(x: GetEventInput): Promise<EventEntity>;
@@ -72,6 +76,9 @@ export class EventService {
     }
   }
 
+  /**
+   * Fetches all events
+   */
   async getAll(): Promise<EventEntity[]> {
     return this._eventRepository.createQueryBuilder('event')
     .leftJoinAndSelect('event.users', 'eventUsers')
@@ -86,6 +93,10 @@ export class EventService {
     .getMany();
   }
 
+  /**
+   * Creates one event
+   * @param input event Data
+   */
   async createOne(input: CreateEventInput): Promise<EventEntity> {
     const event = this._eventRepository.create(input);
     event.eventId = Buffer.from(new Date().valueOf().toString()).toString('base64');
@@ -93,35 +104,5 @@ export class EventService {
     event.eventId = event.eventId.replace(/\+/g, "");
     event.eventId = event.eventId.replace(/\//g, "");
     return this._eventRepository.save(event);
-  }
-
-  async addUser(input: AddUserInput){
-    // Check if input is defined
-    if (!input.userData && !input.userId){
-      throw new Error('No user specified')
-    }
-
-    const event = await this._eventRepository.findOne(input.eventId, { relations: ['users'] });
-    if (!event) throw new Error('No Event with the id "' + input.eventId + '" found');
-    
-    // Create or get user
-    let user: EventUserEntity;
-    if (input.userId){
-      this._eventUserRepository.findOne()
-      user = await this._eventUserService.getOne(input.userId);
-    } else {
-      user = await this._eventUserService.createOne(input.userData);
-    }
-    
-    // Check if already linked
-    if(event.users.some((searchElement: EventUserEntity) => {return searchElement.id === user.id})) throw new Error('User already linked to event');
-    
-    // Create relation
-    user.event = event;
-    user = await this._eventUserRepository.save(user);
-    event.users.push(user);
-    await this._eventRepository.save(event);
-    await this._eventUserService.getOptimalPlatform(event);
-    return this.getOne(event.id);
   }
 }

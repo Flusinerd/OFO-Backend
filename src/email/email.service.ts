@@ -21,6 +21,10 @@ export class EmailService {
     "Salam aleikum"
   ]
 
+  /**
+   * Sends one invite to all provided emails
+   * @param input Input object
+   */
   async sendEmails(input: SendEmailsInput) {
     const event = await this._eventService.getOne(input.eventId);
     try {

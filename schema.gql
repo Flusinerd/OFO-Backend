@@ -81,7 +81,6 @@ input GetEventInput {
 
 type Mutation {
   createEvent(input: CreateEventInput!): EventEntity!
-  addUser(input: AddUserInput!): EventEntity!
   addPlatform(input: AddPlatformInput!): GetUserResponse!
   addPlatforms(input: AddPlatformsInput!): GetUserResponse!
   addDate(input: AddDateInput!): GetUserResponse!
@@ -111,12 +110,6 @@ input DateInput {
 
 input PlatformInput {
   title: String!
-}
-
-input AddUserInput {
-  eventId: Int!
-  userData: EventUserInput
-  userId: Int
 }
 
 input AddPlatformInput {

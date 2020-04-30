@@ -26,6 +26,10 @@ export class EventUserService {
     private _dateRepository: Repository<DateEntity>,
   ) {}
 
+  /**
+   * Fetches one user using the identifier
+   * @param id User identifiert
+   */
   async getOne(id: number): Promise<EventUserEntity> {
     const user = this._eventUserRepo
       .createQueryBuilder('user')
@@ -43,6 +47,9 @@ export class EventUserService {
     return user;
   }
 
+  /**
+   * Fetches all users
+   */
   async getAll(): Promise<EventUserEntity[]> {
     const user = this._eventUserRepo
       .createQueryBuilder('user')
@@ -60,21 +67,9 @@ export class EventUserService {
   }
 
   /**
-   * Unused atm
-   * @param event
+   * Creates a new user using the provided data and links it to the event
+   * @param data new User data
    */
-  async getAllOfEvent(event: EventEntity | number): Promise<EventUserEntity[]> {
-    return this._eventUserRepo
-      .createQueryBuilder('user')
-      .where({ event })
-      .leftJoinAndSelect('user.dates', 'date')
-      .leftJoinAndSelect('user.platforms', 'platform')
-      .leftJoinAndSelect('platform.event', 'platformEvent')
-      .leftJoinAndSelect('user.event', 'event')
-      .leftJoinAndSelect('event.optimalPlatform', 'optimalPlatform')
-      .getMany();
-  }
-
   async createOne(data: EventUserInput): Promise<EventUserEntity> {
     let event;
     if (data.eventId) {
@@ -85,7 +80,13 @@ export class EventUserService {
     return this._eventUserRepo.save(entity);
   }
 
-  async addPlatform(input: AddPlatformInput) {
+  /**
+   * Adds the platform to the user and the users event
+   * Then calculates the optimal Platform for the event, if noCalc was not provided
+   * @param input Platform data
+   * @param noCalc set this to true to not calc the optimalPlatform 
+   */
+  async addPlatform(input: AddPlatformInput, noCalc?: boolean) {
     let user = await this.getOne(input.userId);
     if (!user)
       throw new Error('User with id: "' + input.userId + '" does not exist');
@@ -109,10 +110,16 @@ export class EventUserService {
       platform.event = user.event;
     }
     await this._platformRepo.save(platform);
-    await this.getOptimalPlatform(user.event);
+    if (!noCalc){
+      await this.getOptimalPlatform(user.event);
+    }
     return this.getOne(user.id);
   }
 
+  /**
+   * Adds multiple platforms to the user and the event. Then calculates the optimal Platform
+   * @param input multiple platforms data
+   */
   async addPlatforms(input: AddPlatformsInput) {
     if (!input.platforms && !input.platformIds)
       throw new Error('No platform data provided');
@@ -150,7 +157,13 @@ export class EventUserService {
     return await this.getOne(user.id);
   }
 
-  async addDate(input: AddDateInput) {
+  /**
+   * Adds a date to the user and the event
+   * Set noCalc to true, to not calculate the optimalDate for the event
+   * @param input data Data
+   * @param noCalc Set this to true, to not calculate optimalDate
+   */
+  async addDate(input: AddDateInput, noCalc?: boolean) {
     if (!input.date && !input.dateId) throw new Error('No Date data provided');
     let user = await this.getOne(input.userId);
     if (!user) throw new Error('No user with id: "' + input.userId + '" found');
@@ -181,6 +194,10 @@ export class EventUserService {
     return this.getOne(input.userId);
   }
 
+  /**
+   * Links the provided dates to the user and the user's event
+   * @param input input data for multiple dates
+   */
   async addDates(input: AddDatesInput) {
     if (
       (!input.dateIds || input.dateIds.length === 0) &&
@@ -192,12 +209,12 @@ export class EventUserService {
       throw new Error('No user with the id: "' + input.userId + '" found');
     if (input.dateIds) {
       for (const dateId of input.dateIds) {
-        await this.addDate({ userId: input.userId, dateId });
+        await this.addDate({ userId: input.userId, dateId }, true);
       }
     }
     if (input.dates) {
       for (const date of input.dates) {
-        await this.addDate({ userId: input.userId, date });
+        await this.addDate({ userId: input.userId, date }, true);
       }
     }
 
@@ -206,6 +223,10 @@ export class EventUserService {
     return this.getOne(user.id);
   }
 
+  /**
+   * Finds the optimal Platform for the event
+   * @param event Event of wich the optimal platform should be found
+   */
   async getOptimalPlatform(event: EventEntity) {
     if (!event.users) throw new Error('No users in event');
     const users = event.users;
@@ -245,6 +266,10 @@ export class EventUserService {
     this._eventRepository.save(event);
   }
 
+  /**
+   * Finds the optimal Date for the Event
+   * @param event Event for wich the optimal Date should be found
+   */
   async getOptimalDate(event: EventEntity) {
     if (!event.users) throw new Error('No users in event');
     let dates = event.dates;
