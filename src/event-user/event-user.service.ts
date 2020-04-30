@@ -9,7 +9,6 @@ import { PlatformEntity } from '../platform/models/platform.entity';
 import { AddPlatformsInput } from './models/addPlatforms.input';
 import { AddDateInput, AddDatesInput } from './models/addDate.input';
 import { DateEntity } from './models/date.entity';
-import { EventService } from '../event/event.service';
 
 @Injectable()
 export class EventUserService {
@@ -174,9 +173,9 @@ export class EventUserService {
     delete date.event.dates;
     delete date.event.users;
     date.users.push(user);
-    console.log(date);
     date = await this._dateRepository.save(date);
     date.event = user.event;
+    user = await this.getOne(user.id);
 
     await this.getOptimalDate(user.event);
     return this.getOne(input.userId);
@@ -201,6 +200,8 @@ export class EventUserService {
         await this.addDate({ userId: input.userId, date });
       }
     }
+
+    user = await this.getOne(user.id);
     await this.getOptimalDate(user.event);
     return this.getOne(user.id);
   }
@@ -246,7 +247,6 @@ export class EventUserService {
 
   async getOptimalDate(event: EventEntity) {
     if (!event.users) throw new Error('No users in event');
-    const users = event.users;
     let dates = event.dates;
 
     let highestCount = 0;
@@ -259,9 +259,7 @@ export class EventUserService {
     }
 
     event.optimalDate = optimalDate;
-    console.log('Optimal date')
     delete event.dates;
-    console.log(event);
-    this._eventRepository.save(event);
+    await this._eventRepository.save(event);
   }
 }
