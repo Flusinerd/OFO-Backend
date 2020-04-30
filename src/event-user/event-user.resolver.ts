@@ -45,8 +45,8 @@ export class EventUserResolver {
 
   @Mutation(returns => GetUserResponse, { name: 'addPlatforms' })
   async addPlatforms(@Args('input') input: AddPlatformsInput) {
-    const platform = this._eventUserService.addPlatforms(input);
-    const event = this._eventService.getOne((await platform).event.id);
+    const platform = await this._eventUserService.addPlatforms(input);
+    const event = await this._eventService.getOne(platform.event.id);
     this.pubSub.publish('eventUpdated', { eventUpdated: event });
     this.pubSub.publish('userUpdated', { userUpdated: platform });
     return platform;

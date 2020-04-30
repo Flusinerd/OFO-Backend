@@ -41,7 +41,6 @@ export class EventUserService {
       .leftJoinAndSelect('event.dates', 'eventDates')
       .leftJoinAndSelect('eventDates.users', 'eventDateUsers')
       .getOne();
-    console.log(await user);
     return user;
   }
 
@@ -122,35 +121,34 @@ export class EventUserService {
     if (!user)
       throw new Error('User with id: "' + input.userId + '" does not exist');
 
-    const promises = [];
     if (input.platforms) {
       for (const platform of input.platforms) {
         let createdPlatform: PlatformEntity;
         createdPlatform = this._platformRepo.create(platform);
         createdPlatform.users = [user];
         createdPlatform.event = user.event;
-        promises.push(this._platformRepo.save(platform));
+        await this._platformRepo.save(createdPlatform);
       }
     }
     if (input.platformIds) {
       for (const id of input.platformIds) {
         let foundPlatform: PlatformEntity;
         try {
-          foundPlatform = await this._platformRepo.findOneOrFail(id);
+          foundPlatform = await this._platformRepo.findOne(id, { relations: ['users']});
           if (foundPlatform.users.find(check => check.id === user.id))
             throw new Error('Platform already has this user');
           foundPlatform.users.push(user);
-          foundPlatform.event = user.event;
-          promises.push(this._platformRepo.save(foundPlatform));
+          // foundPlatform.event = user.event;
+          await this._platformRepo.save(foundPlatform);
         } catch (error) {
           continue;
         }
       }
     }
 
-    await Promise.all(promises);
+    user = await this.getOne(user.id);
     await this.getOptimalPlatform(user.event);
-    return this.getOne(user.id);
+    return await this.getOne(user.id);
   }
 
   async addDate(input: AddDateInput) {
@@ -172,8 +170,13 @@ export class EventUserService {
     if (date.users.some(check => check.id === user.id))
       throw new Error('Date already has this user assigned');
 
+    date.event = Object.assign({}, user.event);
+    delete date.event.dates;
+    delete date.event.users;
     date.users.push(user);
+    console.log(date);
     date = await this._dateRepository.save(date);
+    date.event = user.event;
 
     await this.getOptimalDate(user.event);
     return this.getOne(input.userId);
@@ -188,21 +191,16 @@ export class EventUserService {
     let user = await this.getOne(input.userId);
     if (!user)
       throw new Error('No user with the id: "' + input.userId + '" found');
-
-    const promises = [];
     if (input.dateIds) {
       for (const dateId of input.dateIds) {
-        promises.push(this.addDate({ userId: input.userId, dateId }));
+        await this.addDate({ userId: input.userId, dateId });
       }
     }
     if (input.dates) {
       for (const date of input.dates) {
-        promises.push(this.addDate({ userId: input.userId, date }));
+        await this.addDate({ userId: input.userId, date });
       }
     }
-
-    // Wait for all to finsh and return
-    await Promise.all(promises);
     await this.getOptimalDate(user.event);
     return this.getOne(user.id);
   }
@@ -240,13 +238,13 @@ export class EventUserService {
       }
     }
 
-    event.optimalPlatform = optimalPlatform;
+    event.optimalPlatform = optimalPlatform.platform;
     delete event.users;
+    delete event.dates;
     this._eventRepository.save(event);
   }
 
   async getOptimalDate(event: EventEntity) {
-    console.log(event);
     if (!event.users) throw new Error('No users in event');
     const users = event.users;
     let dates = event.dates;
@@ -261,6 +259,9 @@ export class EventUserService {
     }
 
     event.optimalDate = optimalDate;
+    console.log('Optimal date')
+    delete event.dates;
+    console.log(event);
     this._eventRepository.save(event);
   }
 }

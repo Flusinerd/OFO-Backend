@@ -2,7 +2,6 @@ import {
   Resolver,
   Query,
   Args,
-  Int,
   Mutation,
   Subscription,
 } from '@nestjs/graphql';
@@ -11,6 +10,7 @@ import { EventService } from './event.service';
 import { CreateEventInput } from './models/event.input';
 import { AddUserInput } from './models/addUser.input';
 import { PubSub } from 'graphql-subscriptions';
+import { GetEventInput } from './models/getEvent.input';
 
 const pubSub = new PubSub();
 
@@ -24,7 +24,7 @@ export class EventResolver {
   }
 
   @Query(returns => EventEntity, { name: 'event' })
-  getEvent(@Args('id', { type: () => Int }) x: number) {
+  getEvent(@Args('input', { type: () => GetEventInput }) x: GetEventInput) {
     return this._eventService.getOne(x);
   }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="jest tests" tests="18" failures="0" time="7.158">
-  <testsuite name="EventUserResolver" errors="0" failures="0" skipped="0" timestamp="2020-04-24T18:52:27" time="6.134" tests="14">
+  <testsuite name="EventUserResolver" errors="0" failures="0" skipped="0" ="2020-04-24T18:52:27" time="6.134" tests="14">
     <testcase classname="EventUserResolver should be defined" name="EventUserResolver should be defined" time="0.012">
     </testcase>
     <testcase classname="EventUserResolver should allow get all users" name="EventUserResolver should allow get all users" time="0.002">

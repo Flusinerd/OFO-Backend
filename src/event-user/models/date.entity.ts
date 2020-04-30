@@ -23,6 +23,6 @@ export class DateEntity{
   @JoinTable()
   users: EventUserEntity[]
 
-  @ManyToOne(type => EventEntity, event => event.dates)
+  @ManyToOne(type => EventEntity, event => event.dates, {cascade: true})
   event: EventEntity;
 }

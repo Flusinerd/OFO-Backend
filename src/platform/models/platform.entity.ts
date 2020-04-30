@@ -10,7 +10,7 @@ export class PlatformEntity {
   @Field(type => Int)
   id: number;
 
-  @Column({type: "varchar", nullable: false})
+  @Column()
   @Field(type => String)
   title: string;
 

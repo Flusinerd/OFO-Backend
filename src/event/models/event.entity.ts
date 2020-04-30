@@ -19,16 +19,17 @@ export class EventEntity{
   @Field()
   eventId: string;
 
-  @Column()
-  @Field()
-  optimalDate: Date;
+  @Field({nullable: true})
+  @OneToOne(type => DateEntity)
+  @JoinColumn()
+  optimalDate: DateEntity;
 
   @OneToOne(type => PlatformEntity, {eager: true, cascade: true})
   @JoinColumn()
   @Field(type => PlatformEntity, {nullable: true})
   optimalPlatform: PlatformEntity
 
-  @Column()
+  @Column({nullable: true})
   @Field(type => Int)
   voted_count: number;
 
@@ -40,7 +41,7 @@ export class EventEntity{
   @Field(type => [PlatformEntity])
   platforms: PlatformEntity[];
 
-  @OneToMany(type => DateEntity, date => date.event)
-  @Field(type => [DateEntity])
+  @OneToMany(type => DateEntity, date => date.event, {cascade: ["insert", "update"]})
+  @Field(type => [DateEntity], {nullable: true})
   dates: DateEntity[]
 }

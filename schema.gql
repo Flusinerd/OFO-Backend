@@ -31,12 +31,12 @@ type EventEntity {
   id: Int!
   title: String!
   eventId: String!
-  optimalDate: DateTime!
+  optimalDate: DateEntity
   optimalPlatform: PlatformEntity
   voted_count: Int!
   users: [EventUserEntity!]!
   platforms: [PlatformEntity!]!
-  dates: [DateEntity!]!
+  dates: [DateEntity!]
 }
 
 type DateResponse {
@@ -58,6 +58,7 @@ type EventResponse {
   optimalPlatform: PlatformResponse
   voted_count: Int!
   dates: [DateResponse!]
+  platforms: [PlatformResponse!]
 }
 
 type GetUserResponse {
@@ -69,9 +70,14 @@ type GetUserResponse {
 
 type Query {
   events: [EventEntity!]!
-  event(id: Int!): EventEntity!
+  event(input: GetEventInput!): EventEntity!
   eventUsers: [GetUserResponse!]!
   eventUser(id: Int!): GetUserResponse!
+}
+
+input GetEventInput {
+  id: Int
+  eventId: String
 }
 
 type Mutation {
@@ -81,7 +87,8 @@ type Mutation {
   addPlatforms(input: AddPlatformsInput!): GetUserResponse!
   addDate(input: AddDateInput!): GetUserResponse!
   addDates(input: AddDatesInput!): GetUserResponse!
-  createEventUser(input: EventUserInput!): EventUserEntity!
+  createEventUser(input: EventUserInput!): GetUserResponse!
+  sendEmails(input: SendEmailsInput!): Boolean!
 }
 
 input CreateEventInput {
@@ -135,6 +142,12 @@ input AddDatesInput {
   userId: Int!
   dates: [DateInput!]
   dateIds: [Int!]
+}
+
+input SendEmailsInput {
+  eventId: Int!
+  emails: [String!]!
+  link: String!
 }
 
 type Subscription {

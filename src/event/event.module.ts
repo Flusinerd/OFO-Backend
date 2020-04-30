@@ -11,6 +11,7 @@ import { EventUserEntity } from '../event-user/models/event-user.entity';
     TypeOrmModule.forFeature([EventEntity, EventUserEntity]),
     EventUserModule,
   ],
-  providers: [EventService, EventResolver]
+  providers: [EventService, EventResolver],
+  exports: [EventService]
 })
 export class EventModule {}

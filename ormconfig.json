@@ -1,9 +1,9 @@
 {
-  "type": "postgres",
-  "host": "postgres",
-  "port": 5432,
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
   "username": "ofo",
-  "password": "postgres",
+  "password": "ofo",
   "database": "ofo",
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": true
