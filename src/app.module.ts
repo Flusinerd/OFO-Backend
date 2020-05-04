@@ -48,6 +48,12 @@ export class AppModule {
     const config = {
       url: process.env.HOST_URL,
     }
-    fs.writeFileSync(join(__dirname, '..', 'src', 'client', 'assets', 'config.json'), JSON.stringify(config));
+    const assetsPath = join(__dirname, '..', 'src', 'client', 'assets');
+    const configPath = join(assetsPath, 'config.json');
+    //Check if directory exists else create
+    if (!fs.existsSync(assetsPath)){
+      fs.mkdirSync(assetsPath)
+    }
+    fs.writeFileSync(configPath, JSON.stringify(config));
   }
 }
