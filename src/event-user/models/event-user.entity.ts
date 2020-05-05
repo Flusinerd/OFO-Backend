@@ -21,4 +21,8 @@ export class EventUserEntity {
 
   @ManyToOne(type => EventEntity, event => event.users, {eager: true})
   event?: EventEntity;
+
+  @Column({nullable: true})
+  @Field({nullable: true})
+  name?: string;
 }

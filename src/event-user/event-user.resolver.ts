@@ -7,7 +7,6 @@ import {
   Subscription,
 } from '@nestjs/graphql';
 import { EventUserService } from './event-user.service';
-import { EventUserEntity } from './models/event-user.entity';
 import { EventUserInput } from './models/createUser.input';
 import { AddPlatformInput } from './models/addPlatform.input';
 import { GetUserResponse } from './models/getUser.response';

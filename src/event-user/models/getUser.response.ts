@@ -60,4 +60,7 @@ export class GetUserResponse{
 
   @Field({ nullable: true })
   event: EventResponse;
+
+  @Field({nullable: true})
+  name?: string;
 }
